@@ -1,6 +1,29 @@
 import React from "react";
-
+import { useState } from "react";
+import axios from "axios"
 export default function Signup() {
+    const [userName,SetUserName]   =useState("");
+    const [email,SetEmail]         =useState("");
+    const [password,SetPassword] =useState("");
+  
+
+    const handleSubmit=(event)=>{
+        event.preventDefault();
+        
+        const data = {
+          username : userName,
+          email    : email,
+          password : password,
+        }
+        axios.post(`${process.env.REACT_APP_BASE_LINK}/register`, data)
+        .then(response => {
+          console.log(response.data); 
+          
+        })
+        .catch(err=>{
+          console.log(err);
+        })
+      }
   return (
     <div>
       <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -15,7 +38,7 @@ export default function Signup() {
               Create a new account
             </h2>
           </div>
-          <form className="mt-8 space-y-6" action="#" method="POST">
+          <form className="mt-8 space-y-6" onSubmit={handleSubmit} >
             <input type="hidden" name="remember" value="true"></input>
             <div className="rounded-md shadow-sm -space-y-px">
             <div>
@@ -23,13 +46,11 @@ export default function Signup() {
                   User name
                 </label>
                 <input
-                  id="email-address"
-                  name="email"
-                  type="email"
-                  autocomplete="email"
+                  type="text"
                   required
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="User name"
+                  onChange={event => SetUserName(event.target.value)}
                 ></input>
               </div>
               <div>
@@ -37,13 +58,12 @@ export default function Signup() {
                   Email address
                 </label>
                 <input
-                  id="email-address"
-                  name="email"
                   type="email"
                   autocomplete="email"
                   required
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Email address"
+                  onChange={event => SetEmail(event.target.value)}
                 ></input>
               </div>
               <div>
@@ -51,13 +71,12 @@ export default function Signup() {
                   Password
                 </label>
                 <input
-                  id="password"
-                  name="password"
                   type="password"
                   autocomplete="current-password"
                   required
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Password"
+                  onChange={event => SetPassword(event.target.value)}
                 ></input>
               </div>
             </div>
