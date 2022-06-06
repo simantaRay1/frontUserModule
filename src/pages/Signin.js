@@ -1,12 +1,14 @@
 import React from "react";
 import { useState } from "react";
 import axios from "axios"
+import { useNavigate  } from "react-router-dom"
+
 export default function Signup() {
     const [userName,SetUserName]   =useState("");
     const [password,SetPassword] =useState("");
+    let navigate = useNavigate();
     const handleSubmit=(event)=>{
         event.preventDefault();
-        
         const data = {
           username : userName,
           password : password,
@@ -14,7 +16,9 @@ export default function Signup() {
         axios.post(`${process.env.REACT_APP_BASE_LINK}/login`, data)
         .then(response => {
           console.log(response.data); 
-          
+          localStorage.setItem("jwt",response.data.acessToken)
+          localStorage.setItem("refjwt",response.data.refreshToken)
+          if(response.data) navigate("/"); 
         })
         .catch(err=>{
           console.log(err);

@@ -1,10 +1,14 @@
 import React from "react";
 import { useState } from "react";
 import axios from "axios"
+import { useNavigate  } from "react-router-dom"
+
 export default function Signup() {
     const [userName,SetUserName]   =useState("");
     const [email,SetEmail]         =useState("");
     const [password,SetPassword] =useState("");
+
+    let navigate = useNavigate();
   
 
     const handleSubmit=(event)=>{
@@ -17,7 +21,9 @@ export default function Signup() {
         }
         axios.post(`${process.env.REACT_APP_BASE_LINK}/register`, data)
         .then(response => {
-          console.log(response.data); 
+          console.log(response.data);
+          if(response.data) navigate("/"); 
+          
           
         })
         .catch(err=>{
