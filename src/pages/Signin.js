@@ -13,7 +13,7 @@ export default function Signup() {
           username : userName,
           password : password,
         }
-        axios.post(`${process.env.REACT_APP_BASE_LINK}/login`, data)
+        axios.post(`${process.env.REACT_APP_BASE_LINK}/user/login`, data)
         .then(response => {
           console.log(response.data); 
           localStorage.setItem("jwt",response.data.acessToken)
