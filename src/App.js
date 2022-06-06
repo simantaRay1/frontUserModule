@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import Details from "./pages/Details";
 
+
 function App() {
   return (
     <div className="App">
