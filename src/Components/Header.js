@@ -1,7 +1,4 @@
-
 export default function Header() {
-
-
   return (
       <header className="text-black bg-white drop-shadow-md">
         <div className="relative h-20 flex items-center justify-between p-10">

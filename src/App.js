@@ -1,4 +1,5 @@
 import Header from "./Components/Header";
+import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
 
 function App() {
@@ -6,6 +7,7 @@ function App() {
     <div className="App">
         <Header />
         <Signup />
+        <Signin />
     </div>
   );
 }
