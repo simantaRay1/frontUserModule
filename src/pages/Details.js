@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import EditMmodule from "../Components/EditMmodule";
 
-
 export default function Details() {
   const [datas, setDatas] = useState(null);
   const [viewModal,setViewModal] = useState(false)
@@ -22,9 +21,6 @@ export default function Details() {
         console.log(err);
       });
   }, []);
-  datas?.map((data) => {
-    console.log(data);
-  });
   const handleModal=()=>{
     setViewModal(true)
   }
@@ -84,14 +80,14 @@ export default function Details() {
                         {data.email}
                       </td>
                       <td className="text-sm text-gray-900 font-semibold px-6 py-4 whitespace-nowrap max-w-[15vw]">
-                        {data.roles?.map((role) => (
-                          <span class="bg-blue-100 cursor-pointer text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">{role}</span>
+                        {data.roles?.map((role,index) => (
+                          <span key ={index} className="bg-blue-100 cursor-pointer text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">{role}</span>
                         ))}
                       </td>
                       <td className="text-sm text-gray-900 font-semibold px-6 py-4 whitespace-nowrap">
                         <button
                           type="button"
-                          class="bg-gray-400 text-white px-6 py-2 rounded-md hover:bg-slate-600"
+                          className="bg-gray-400 text-white px-6 py-2 rounded-md hover:bg-slate-600"
                           onClick={handleModal}
                         >
                           Edit
