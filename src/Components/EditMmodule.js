@@ -1,33 +1,53 @@
 import React, { useState } from "react";
-import axios from "axios"
+import axios from "axios";
 
-export default function EditMmodule({ setViewModal , user}) {
+export default function EditMmodule({ setViewModal, user }) {
   const [username, setUsername] = useState(user.username);
   const [email, setEmail] = useState(user.email);
   const [role, setRoles] = useState();
-  const token = window.localStorage.getItem('jwt')
-  const handleSave=(e)=>{
+  const token = window.localStorage.getItem("jwt");
+  const handleSave = (e) => {
     e.preventDefault();
 
     const data = {
-      username : username,
-      email : email,
-    }
-    axios.put(`${process.env.REACT_APP_BASE_LINK}/user/${user._id}`, data,
-    {
-      headers: {
-        "token": `Bearer ${token}`,
-      },
-    })
-    .then(response => {
-      console.log(response.data); 
-      setViewModal(false);
-    })
-    .catch(err=>{
-      console.log(err);
-    })
-  }
-  
+      username: username,
+      email: email,
+    };
+    //edit
+    axios
+      .put(`${process.env.REACT_APP_BASE_LINK}/user/${user._id}`, data, {
+        headers: {
+          token: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+        setViewModal(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    //add roles
+    if(role)
+    axios
+      .put(
+        `${process.env.REACT_APP_BASE_LINK}/user/addrole/${role}/${user._id}`,
+        {},
+        {
+          headers: {
+            token: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response.data);
+        setViewModal(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <div className="absolute w-auto h-full top-0 bg-black/[.30] outline-none overflow-x-hidden overflow-y-auto">
       <div>
@@ -48,7 +68,7 @@ export default function EditMmodule({ setViewModal , user}) {
                     User name
                   </label>
                   <input
-                  value={username}
+                    value={username}
                     type="text"
                     required
                     className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
@@ -62,7 +82,7 @@ export default function EditMmodule({ setViewModal , user}) {
                     Email
                   </label>
                   <input
-                  value={email}
+                    value={email}
                     type="email"
                     required
                     className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
@@ -93,7 +113,6 @@ export default function EditMmodule({ setViewModal , user}) {
                     <option value="3">Team Leader</option>
                     <option value="4">Team Member</option>
                   </select>
-                  
                 </div>
               </div>
 
