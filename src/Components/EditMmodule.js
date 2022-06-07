@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function EditMmodule({ setViewModal, user , refreshToken}) {
   const [username, setUsername] = useState(user.username);
@@ -22,6 +23,7 @@ export default function EditMmodule({ setViewModal, user , refreshToken}) {
       })
       .then((response) => {
        // console.log(response.data.status);
+       toast.success('Done')
         setViewModal(false);
       })
       .catch((err) => {
@@ -45,17 +47,23 @@ export default function EditMmodule({ setViewModal, user , refreshToken}) {
       .then((response) => {
       //  console.log(response.data);
         setViewModal(false);
+        toast.error('Not Admin')
       })
       .catch((err) => {
+
         if (err.response.status == "400") {
           console.log("refersh");
           refreshToken();
+        }
+        if (err.response.status == "404") {
+          toast.error('Not Admin')
         }
       });
   };
 
   return (
     <div className="absolute w-auto h-full top-0 bg-black/[.30] outline-none overflow-x-hidden overflow-y-auto">
+      <Toaster position="top-right" reverseOrder={false} />
       <div>
         <div className=" w-[100vw] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 ">
           <div className="max-w-md w-full space-y-8 bg-white p-10">
