@@ -12,6 +12,7 @@ export default function Details() {
   const navigate = useNavigate();
   const token = window.localStorage.getItem("jwt");
   const reftoken = window.localStorage.getItem("refjwt");
+
   const getData = () => {
     axios
       .get(`${process.env.REACT_APP_BASE_LINK}/table/all`, {
@@ -24,10 +25,11 @@ export default function Details() {
       })
       .catch((err) => {
         if (err.response.status == "400") {
-          console.log("refersh");
-          refreshToken();
           
-          // getData();
+          refreshToken();
+          navigate("/")
+          
+          
         }
       });
   };
@@ -39,10 +41,9 @@ export default function Details() {
       },
     })
     .then((response) => {
-      setGetToken(response.data.accessToken)
+    if(response)  setGetToken(response.data.accessToken)
       localStorage.setItem("jwt",response.data.acessToken)
-      // if(response.data.accessToken) 
-      window.location.reload();
+      window.location.reload('/');
     })
     .catch((err) => {
       console.log(err)
@@ -114,7 +115,7 @@ export default function Details() {
                       <td className="text-sm text-gray-900 font-semibold px-6 py-4 whitespace-nowrap">
                         {data.email}
                       </td>
-                      <td className="text-sm text-gray-900 font-semibold px-6 py-4 whitespace-nowrap max-w-[15vw]">
+                      <td className="text-sm text-gray-900 font-semibold px-6 py-4 whitespace-nowrap ">
                         {data.roles?.map((role, index) => (
                           <span
                             key={index}
@@ -141,7 +142,7 @@ export default function Details() {
           </div>
         </div>
       </div>
-      {viewModal && <EditMmodule setViewModal={setViewModal} user={user} />}
+      {viewModal && <EditMmodule setViewModal={setViewModal} user={user} refreshToken={refreshToken}/>}
     </div>
   );
 }

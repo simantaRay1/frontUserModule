@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-export default function EditMmodule({ setViewModal, user }) {
+export default function EditMmodule({ setViewModal, user , refreshToken}) {
   const [username, setUsername] = useState(user.username);
   const [email, setEmail] = useState(user.email);
   const [role, setRoles] = useState();
@@ -21,11 +21,14 @@ export default function EditMmodule({ setViewModal, user }) {
         },
       })
       .then((response) => {
-        console.log(response.data.status);
+       // console.log(response.data.status);
         setViewModal(false);
       })
       .catch((err) => {
-        console.log(err);
+        if (err.response.status == "400") {
+          console.log("refersh");
+          refreshToken();
+        }
       });
     //add roles
     if(role)
@@ -40,11 +43,14 @@ export default function EditMmodule({ setViewModal, user }) {
         }
       )
       .then((response) => {
-        console.log(response.data);
+      //  console.log(response.data);
         setViewModal(false);
       })
       .catch((err) => {
-        console.log(err);
+        if (err.response.status == "400") {
+          console.log("refersh");
+          refreshToken();
+        }
       });
   };
 
