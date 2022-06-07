@@ -6,6 +6,8 @@ import EditMmodule from "../Components/EditMmodule";
 export default function Details() {
   const [datas, setDatas] = useState(null);
   const [viewModal,setViewModal] = useState(false)
+  const [user,setUser]=useState('')
+
   const token = window.localStorage.getItem('jwt')
   useEffect(() => {
     axios
@@ -20,8 +22,9 @@ export default function Details() {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
-  const handleModal=()=>{
+  }, [viewModal]);
+  const handleModal=(user)=>{
+    setUser(user);
     setViewModal(true)
   }
 
@@ -88,7 +91,7 @@ export default function Details() {
                         <button
                           type="button"
                           className="bg-gray-400 text-white px-6 py-2 rounded-md hover:bg-slate-600"
-                          onClick={handleModal}
+                          onClick={()=>handleModal(data)}
                         >
                           Edit
                         </button>
@@ -101,7 +104,7 @@ export default function Details() {
           </div>
         </div>
       </div>
-      {viewModal &&   <EditMmodule setViewModal={setViewModal} />}
+      {viewModal &&   <EditMmodule setViewModal={setViewModal} user={user}/>}
     </div>
   );
 }

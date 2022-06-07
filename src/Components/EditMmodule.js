@@ -1,14 +1,31 @@
 import React, { useState } from "react";
+import axios from "axios"
 
-
-export default function EditMmodule({ setViewModal }) {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
+export default function EditMmodule({ setViewModal , user}) {
+  const [username, setUsername] = useState(user.username);
+  const [email, setEmail] = useState(user.email);
   const [role, setRoles] = useState();
+  const token = window.localStorage.getItem('jwt')
   const handleSave=(e)=>{
     e.preventDefault();
 
-    console.log(username,email,role)
+    const data = {
+      username : username,
+      email : email,
+    }
+    axios.put(`${process.env.REACT_APP_BASE_LINK}/user/${user._id}`, data,
+    {
+      headers: {
+        "token": `Bearer ${token}`,
+      },
+    })
+    .then(response => {
+      console.log(response.data); 
+      setViewModal(false);
+    })
+    .catch(err=>{
+      console.log(err);
+    })
   }
   
   return (
@@ -31,6 +48,7 @@ export default function EditMmodule({ setViewModal }) {
                     User name
                   </label>
                   <input
+                  value={username}
                     type="text"
                     required
                     className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
@@ -44,6 +62,7 @@ export default function EditMmodule({ setViewModal }) {
                     Email
                   </label>
                   <input
+                  value={email}
                     type="email"
                     required
                     className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
