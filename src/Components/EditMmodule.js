@@ -21,7 +21,7 @@ export default function EditMmodule({ setViewModal, user }) {
         },
       })
       .then((response) => {
-        console.log(response.data);
+        console.log(response.data.status);
         setViewModal(false);
       })
       .catch((err) => {
