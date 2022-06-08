@@ -11,17 +11,19 @@ import Details from "./pages/Details";
 
 function App() {
   return (
+  <Router>
     <div className="App">
-      <Router>
+      
        <Header  />
       <Routes >
         <Route path="/"       element={<Details />}/>
         <Route path="/signup" element={<Signup  />}/>
         <Route path="/signin" element={<Signin  />}/>
       </Routes>
-      </Router>
+     
         
     </div>
+     </Router>
   );
 }
 

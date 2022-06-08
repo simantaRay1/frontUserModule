@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 
-export default function EditMmodule({ setViewModal, user , refreshToken}) {
+export default function EditMmodule({ setViewModal, user }) {
   const [username, setUsername] = useState(user.username);
   const [email, setEmail] = useState(user.email);
   const [role, setRoles] = useState();
@@ -27,10 +27,10 @@ export default function EditMmodule({ setViewModal, user , refreshToken}) {
         setViewModal(false);
       })
       .catch((err) => {
-        if (err.response.status == "400") {
-          console.log("refersh");
-          refreshToken();
-        }
+        // if (err.response.status == "400") {
+        //   console.log("refersh");
+        //   refreshToken();
+        // }
       });
     //add roles
     if(role)
@@ -51,10 +51,10 @@ export default function EditMmodule({ setViewModal, user , refreshToken}) {
       })
       .catch((err) => {
 
-        if (err.response.status == "400") {
-          console.log("refersh");
-          refreshToken();
-        }
+        // if (err.response.status == "400") {
+        //   console.log("refersh");
+        //   refreshToken();
+        // }
         if (err.response.status == "404") {
           toast.error('Not Admin')
         }
