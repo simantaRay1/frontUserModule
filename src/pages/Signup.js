@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import axios from "axios"
 import { useNavigate  } from "react-router-dom"
+import { Link } from "react-router-dom";
 
 export default function Signup() {
     const [userName,SetUserName]   =useState("");
@@ -19,12 +20,10 @@ export default function Signup() {
           email    : email,
           password : password,
         }
-        axios.post(`${process.env.REACT_APP_BASE_LINK}/register`, data)
+        axios.post(`${process.env.REACT_APP_BASE_LINK}/user/register`, data)
         .then(response => {
           console.log(response.data);
-          if(response.data) navigate("/"); 
-          
-          
+          if(response.data) navigate("/signin"); 
         })
         .catch(err=>{
           console.log(err);
@@ -123,6 +122,11 @@ export default function Signup() {
                 <span className="absolute left-0 inset-y-0 flex items-center pl-3"></span>
                 Sign up
               </button>
+              <Link to="/signin">
+                <p className="font-medium text-indigo-600 hover:text-indigo-500 mt-4">
+                  Already have a account
+                </p>
+              </Link>
             </div>
           </form>
         </div>

@@ -3,6 +3,8 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
+import { Link } from "react-router-dom";
+
 axios.defaults.withCredentials=true
 
 export default function Signup() {
@@ -113,6 +115,11 @@ export default function Signup() {
                 <span className="absolute left-0 inset-y-0 flex items-center pl-3"></span>
                 Sign in
               </button>
+              <Link to="/signup">
+            <p className="font-medium text-indigo-600 hover:text-indigo-500 mt-4">
+              Im a new user!
+            </p>
+          </Link>
             </div>
           </form>
         </div>
