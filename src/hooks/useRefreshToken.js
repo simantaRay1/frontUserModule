@@ -7,10 +7,12 @@ const useRefreshToken = (reftoken) => {
     const refresh = async (reftoken) => {
         console.log(reftoken)
           axios
-            .get(`${process.env.REACT_APP_BASE_LINK}/user/ref-token`, {
+            .get(`${process.env.REACT_APP_BASE_LINK}/user/ref-token`,{
+              
               headers: {
                 token: `Bearer ${reftoken}`,
               },
+              credentials:"include",
             })
             .then((response) => {
              

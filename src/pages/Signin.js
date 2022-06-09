@@ -3,6 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
+axios.defaults.withCredentials=true
 
 export default function Signup() {
   const [userName, SetUserName] = useState("");
