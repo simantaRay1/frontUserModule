@@ -1,17 +1,14 @@
 import axios from 'axios';
 // import useAuth from './useAuth';
 
-const useRefreshToken = (reftoken) => {
+const useRefreshToken = () => {
     // const { setAuth } = useAuth();
 
-    const refresh = async (reftoken) => {
-        console.log(reftoken)
+    const refresh = async () => {
+       
           axios
             .get(`${process.env.REACT_APP_BASE_LINK}/user/ref-token`,{
               
-              headers: {
-                token: `Bearer ${reftoken}`,
-              },
               credentials:"include",
             })
             .then((response) => {

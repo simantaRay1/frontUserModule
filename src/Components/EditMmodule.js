@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
+import useRefreshToken from "../hooks/useRefreshToken";
 
 export default function EditMmodule({ setViewModal, user }) {
   const [username, setUsername] = useState(user.username);
   const [email, setEmail] = useState(user.email);
   const [role, setRoles] = useState();
   const token = window.localStorage.getItem("jwt");
+  const refresh = useRefreshToken();
   const handleSave = (e) => {
     e.preventDefault();
 
@@ -26,11 +28,10 @@ export default function EditMmodule({ setViewModal, user }) {
        toast.success('Done')
         setViewModal(false);
       })
-      .catch((err) => {
-        // if (err.response.status == "400") {
-        //   console.log("refersh");
-        //   refreshToken();
-        // }
+      .catch(async(err) => {
+        if (err.response.status === 400) {
+          await refresh()
+        }
       });
     //add roles
     if(role)
@@ -49,13 +50,12 @@ export default function EditMmodule({ setViewModal, user }) {
         setViewModal(false);
         toast.error('Not Admin')
       })
-      .catch((err) => {
+      .catch(async(err) => {
 
-        // if (err.response.status == "400") {
-        //   console.log("refersh");
-        //   refreshToken();
-        // }
-        if (err.response.status == "404") {
+        if (err.response.status === 400) {
+          await refresh()
+        }
+        if (err.response.status === 404) {
           toast.error('Not Admin')
         }
       });
@@ -78,7 +78,7 @@ export default function EditMmodule({ setViewModal, user }) {
               <input type="hidden" name="remember" value="true"></input>
               <div className="rounded-md shadow-sm -space-y-px">
                 <div>
-                  <label for="name" className="sr-only">
+                  <label htmlFor="name" className="sr-only">
                     User name
                   </label>
                   <input
@@ -92,7 +92,7 @@ export default function EditMmodule({ setViewModal, user }) {
                 </div>
 
                 <div>
-                  <label for="email" className="sr-only">
+                  <label htmlFor="email" className="sr-only">
                     Email
                   </label>
                   <input

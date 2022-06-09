@@ -20,7 +20,7 @@ export default function Signup() {
       .then((response) => {
         console.log(response.data);
         localStorage.setItem("jwt", response.data.acessToken);
-        localStorage.setItem("refjwt", response.data.refreshToken);
+        // localStorage.setItem("refjwt", response.data.refreshToken);
         if (response.data) navigate("/");
         
       })
@@ -49,7 +49,7 @@ export default function Signup() {
             <input type="hidden" name="remember" value="true"></input>
             <div className="rounded-md shadow-sm -space-y-px">
               <div>
-                <label for="email-address" className="sr-only">
+                <label htmlFor="email-address" className="sr-only">
                   User name
                 </label>
                 <input
@@ -62,12 +62,12 @@ export default function Signup() {
               </div>
 
               <div>
-                <label for="password" className="sr-only">
+                <label htmlFor="password" className="sr-only">
                   Password
                 </label>
                 <input
                   type="password"
-                  autocomplete="current-password"
+                  autoComplete="current-password"
                   required
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Password"
@@ -85,7 +85,7 @@ export default function Signup() {
                   className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
                 ></input>
                 <label
-                  for="remember-me"
+                  htmlFor="remember-me"
                   className="ml-2 block text-sm text-gray-900"
                 >
                   {" "}

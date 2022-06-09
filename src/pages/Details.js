@@ -1,50 +1,26 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import EditMmodule from "../Components/EditMmodule";
-import { useNavigate } from "react-router-dom";
 import useRefreshToken from "../hooks/useRefreshToken";
 import { request } from "../hooks/axios-utils";
+
 export default function Details() {
   const [datas, setDatas] = useState(null);
   const [viewModal, setViewModal] = useState(false);
   const [user, setUser] = useState("");
-  const [count , setCount]=useState(0)
-  const [getToken, setGetToken]=useState()
-  const navigate = useNavigate();
+
   const token = window.localStorage.getItem("jwt");
-  const reftoken = window.localStorage.getItem("refjwt");
+  // const reftoken = window.localStorage.getItem("refjwt");
   const refresh = useRefreshToken();
   const getData = () => {
     request({url:'/table/all'})
     .then(async(result) => {
       console.log(result.status)
       if(result.status===400) {
-       await refresh(reftoken)
-          // window.location.reload("/");
+       await refresh()
       }
       if(result.status===200) setDatas(result.data);
     })
- 
-   
-    // axios
-    //   .get(`${process.env.REACT_APP_BASE_LINK}/table/all`, {
-    //     headers: {
-    //       token: `Bearer ${token}`,
-    //     },
-    //   })
-    // .then((response) => {
-    //     setDatas(response.data);
-    //   })
-      
-    //   .catch(async(err) => {
-    //     if (err.response.status == "400") {
-    //       console.log("k")
-    //       // await refresh(reftoken);
-    //       navigate("/")
-    //     }
-    //   });
-      
   };
 
   useEffect(() => {
