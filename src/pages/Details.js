@@ -13,19 +13,18 @@ export default function Details() {
   // const reftoken = window.localStorage.getItem("refjwt");
   const refresh = useRefreshToken();
   const getData = () => {
-    request({url:'/table/all'})
-    .then(async(result) => {
-      console.log(result.status)
-      if(result.status===400) {
-       await refresh()
+    request({ url: "/table/all" }).then(async (result) => {
+      console.log(result.status);
+      if (result.status === 400) {
+        await refresh();
       }
-      if(result.status===200) setDatas(result.data);
-    })
+      if (result.status === 200) setDatas(result.data);
+    });
   };
 
   useEffect(() => {
     getData();
-  }, [viewModal,token]);
+  }, [viewModal, token]);
   const handleModal = (user) => {
     setUser(user);
     setViewModal(true);
@@ -112,7 +111,7 @@ export default function Details() {
           </div>
         </div>
       </div>
-      {viewModal && <EditMmodule setViewModal={setViewModal} user={user}/>}
+      {viewModal && <EditMmodule setViewModal={setViewModal} user={user} />}
     </div>
   );
 }

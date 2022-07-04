@@ -24,41 +24,40 @@ export default function EditMmodule({ setViewModal, user }) {
         },
       })
       .then((response) => {
-       // console.log(response.data.status);
-       toast.success('Done')
+        // console.log(response.data.status);
+        toast.success("Done");
         setViewModal(false);
       })
-      .catch(async(err) => {
+      .catch(async (err) => {
         if (err.response.status === 400) {
-          await refresh()
+          await refresh();
         }
       });
     //add roles
-    if(role)
-    axios
-      .put(
-        `${process.env.REACT_APP_BASE_LINK}/user/addrole/${role}/${user._id}`,
-        {},
-        {
-          headers: {
-            token: `Bearer ${token}`,
-          },
-        }
-      )
-      .then((response) => {
-      //  console.log(response.data);
-        setViewModal(false);
-        toast.error('Not Admin')
-      })
-      .catch(async(err) => {
-
-        if (err.response.status === 400) {
-          await refresh()
-        }
-        if (err.response.status === 404) {
-          toast.error('Not Admin')
-        }
-      });
+    if (role)
+      axios
+        .put(
+          `${process.env.REACT_APP_BASE_LINK}/user/addrole/${role}/${user._id}`,
+          {},
+          {
+            headers: {
+              token: `Bearer ${token}`,
+            },
+          }
+        )
+        .then((response) => {
+          //  console.log(response.data);
+          setViewModal(false);
+          toast.error("Not Admin");
+        })
+        .catch(async (err) => {
+          if (err.response.status === 400) {
+            await refresh();
+          }
+          if (err.response.status === 404) {
+            toast.error("Not Admin");
+          }
+        });
   };
 
   return (

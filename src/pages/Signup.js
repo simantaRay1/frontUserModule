@@ -1,34 +1,34 @@
 import React from "react";
 import { useState } from "react";
-import axios from "axios"
-import { useNavigate  } from "react-router-dom"
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 export default function Signup() {
-    const [userName,SetUserName]   =useState("");
-    const [email,SetEmail]         =useState("");
-    const [password,SetPassword] =useState("");
+  const [userName, SetUserName] = useState("");
+  const [email, SetEmail] = useState("");
+  const [password, SetPassword] = useState("");
 
-    let navigate = useNavigate();
-  
+  let navigate = useNavigate();
 
-    const handleSubmit=(event)=>{
-        event.preventDefault();
-        
-        const data = {
-          username : userName,
-          email    : email,
-          password : password,
-        }
-        axios.post(`${process.env.REACT_APP_BASE_LINK}/user/register`, data)
-        .then(response => {
-          console.log(response.data);
-          if(response.data) navigate("/signin"); 
-        })
-        .catch(err=>{
-          console.log(err);
-        })
-      }
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    const data = {
+      username: userName,
+      email: email,
+      password: password,
+    };
+    axios
+      .post(`${process.env.REACT_APP_BASE_LINK}/user/register`, data)
+      .then((response) => {
+        console.log(response.data);
+        if (response.data) navigate("/signin");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <div>
       <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -43,10 +43,10 @@ export default function Signup() {
               Create a new account
             </h2>
           </div>
-          <form className="mt-8 space-y-6" onSubmit={handleSubmit} >
+          <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
             <input type="hidden" name="remember" value="true"></input>
             <div className="rounded-md shadow-sm -space-y-px">
-            <div>
+              <div>
                 <label htmlFor="email-address" className="sr-only">
                   User name
                 </label>
@@ -55,7 +55,7 @@ export default function Signup() {
                   required
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="User name"
-                  onChange={event => SetUserName(event.target.value)}
+                  onChange={(event) => SetUserName(event.target.value)}
                 ></input>
               </div>
               <div>
@@ -68,7 +68,7 @@ export default function Signup() {
                   required
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Email address"
-                  onChange={event => SetEmail(event.target.value)}
+                  onChange={(event) => SetEmail(event.target.value)}
                 ></input>
               </div>
               <div>
@@ -81,7 +81,7 @@ export default function Signup() {
                   required
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Password"
-                  onChange={event => SetPassword(event.target.value)}
+                  onChange={(event) => SetPassword(event.target.value)}
                 ></input>
               </div>
             </div>

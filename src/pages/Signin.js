@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import { Link } from "react-router-dom";
 
-axios.defaults.withCredentials=true
+axios.defaults.withCredentials = true;
 
 export default function Signup() {
   const [userName, SetUserName] = useState("");
@@ -24,11 +24,10 @@ export default function Signup() {
         localStorage.setItem("jwt", response.data.acessToken);
         // localStorage.setItem("refjwt", response.data.refreshToken);
         if (response.data) navigate("/");
-        
       })
       .catch((err) => {
         if (err.response.status === 400) {
-          toast.error('Wrong UserName or Password')
+          toast.error("Wrong UserName or Password");
         }
       });
   };
@@ -109,17 +108,16 @@ export default function Signup() {
             <div>
               <button
                 type="submit"
-                
                 className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
                 <span className="absolute left-0 inset-y-0 flex items-center pl-3"></span>
                 Sign in
               </button>
               <Link to="/signup">
-            <p className="font-medium text-indigo-600 hover:text-indigo-500 mt-4">
-              Im a new user!
-            </p>
-          </Link>
+                <p className="font-medium text-indigo-600 hover:text-indigo-500 mt-4">
+                  Im a new user!
+                </p>
+              </Link>
             </div>
           </form>
         </div>
