@@ -1,5 +1,4 @@
 import axios from "axios";
-// import { useEffect } from "react";
 const token = window.localStorage.getItem("jwt");
 const client = axios.create({ baseURL: `${process.env.REACT_APP_BASE_LINK}` });
 

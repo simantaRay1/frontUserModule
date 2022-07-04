@@ -16,7 +16,6 @@ export default function EditMmodule({ setViewModal, user }) {
       username: username,
       email: email,
     };
-    //edit
     axios
       .put(`${process.env.REACT_APP_BASE_LINK}/user/${user._id}`, data, {
         headers: {
@@ -24,7 +23,6 @@ export default function EditMmodule({ setViewModal, user }) {
         },
       })
       .then((response) => {
-        // console.log(response.data.status);
         toast.success("Done");
         setViewModal(false);
       })
@@ -33,7 +31,6 @@ export default function EditMmodule({ setViewModal, user }) {
           await refresh();
         }
       });
-    //add roles
     if (role)
       axios
         .put(
@@ -46,7 +43,6 @@ export default function EditMmodule({ setViewModal, user }) {
           }
         )
         .then((response) => {
-          //  console.log(response.data);
           setViewModal(false);
           toast.error("Not Admin");
         })
