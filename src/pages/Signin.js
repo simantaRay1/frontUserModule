@@ -22,7 +22,6 @@ export default function Signup() {
       .then((response) => {
         console.log(response.data);
         localStorage.setItem("jwt", response.data.acessToken);
-        // localStorage.setItem("refjwt", response.data.refreshToken);
         if (response.data) navigate("/");
       })
       .catch((err) => {

@@ -10,7 +10,6 @@ export default function Details() {
   const [user, setUser] = useState("");
 
   const token = window.localStorage.getItem("jwt");
-  // const reftoken = window.localStorage.getItem("refjwt");
   const refresh = useRefreshToken();
   const getData = () => {
     request({ url: "/table/all" }).then(async (result) => {
